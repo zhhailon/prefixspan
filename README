@@ -1,0 +1,80 @@
+
+ PrefiSpan --- An Implementation of Prefix-projected Sequential Pattern mining
+
+ Author: Yasuo Tabei <tabei@cb.k.u-tokyo.ac.jp>
+         Dept of Computational Biology,
+         Graduate School of Frontier Science,
+	 University of Tokyo
+
+ License: GPL2 (Gnu General Public License Version 2)
+
+ Reference:
+  PrefixSpan: Mining Sequential Patterns Efficiently by Prefix-Projected Pattern Growth
+  Jian Pei, Jiawei Han, Behzad Mortazavi-asl, Helen Pinto, Qiming Chen, Umeshwar Dayal and Mei-chun Hsu
+  IEEE Computer Society, 2001, pages 215
+
+ Requirements:
+   C++ compiler with STL (Standard Template Library).
+
+ Install:
+  % make
+  
+ Usage:
+     ./lcm [options] data
+
+     option: 
+         -min_sup NUM:   set minimum support        (default: 1)
+         -max_pat NUM:   set maximum pattern length (default: infinity)
+
+  Format of input data:
+
+  3 1 3 4 5
+  2 3 1
+  3 4 4 3
+  1 3 4 5
+  2 4 1 
+  6 5 3 
+ 
+  Each line corresponds to the each transaction which has a sequence of items separated by single space.
+
+
+ Format of results:
+ 
+  itemsets
+  ( ids ) freq
+  itemsets
+  ( ids ) freq
+  itemsets
+  ( ids ) freq
+  ... 
+
+  Here is an example: 
+ 
+  1 
+  ( 0 1 3 4 ) : 4
+  1 3 
+  ( 0 3 ) : 2
+  1 3 4 
+  ( 0 3 ) : 2
+  1 3 4 5 
+  ( 0 3 ) : 2
+  1 3 5 
+  ( 0 3 ) : 2
+  1 4 
+  ( 0 3 ) : 2
+  ...
+
+  This result means:
+
+  FREQUENT SEQUENCE   : TRANSACTION ID : FREQUENCY
+  1                       0 1 3 4          4
+  1 3                     0 3              2
+  1 3 4                   0 3              2
+  1 3 4 5                 0 3              2
+  1 3 5                   0 3              2
+  1 4                     0 3              2
+  ...
+
+  Each line represents the frequent sequences
+  whose frequency is no less than min_sup (-min_sup option) and the size of sequences
+  is less than or equal max_pat (-max_pat option).
